@@ -15,48 +15,43 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @WebMvcTest
 class NameControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+  @Autowired MockMvc mockMvc;
 
-    @MockBean
-    NameService nameService;
+  @MockBean NameService nameService;
 
-    @Test
-    void testConcatenateName() throws Exception {
-        when(nameService.concatenate(any(Name.class))).thenReturn("Raghu Rokhda");
+  @Test
+  void testConcatenateName() throws Exception {
+    when(nameService.concatenate(any(Name.class))).thenReturn("Raghu Rokhda");
 
+    mockMvc
+        .perform(
+            post("/v1/name")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"Name\":\"Raghu\",\"Surname\":\"Rokhda\"}"))
+        .andExpect(status().isOk())
+        .andExpect(content().string("Raghu Rokhda"));
+  }
 
-        mockMvc.perform(post("/v1/name")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"Name\":\"Raghu\",\"Surname\":\"Rokhda\"}"))
-                .andExpect(status().isOk())
-                .andExpect(content().string("Raghu Rokhda"));
+  @Test
+  void testConcatenateNameWithBlankName() throws Exception {
 
-    }
+    mockMvc
+        .perform(
+            post("/v1/name")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"name\":\"\",\"surname\":\"Cena\"}"))
+        .andExpect(status().isBadRequest());
+  }
 
-    @Test
-    void testConcatenateNameWithBlankName() throws Exception {
+  @Test
+  void testConcatenateNameWithMissingField() throws Exception {
 
-        mockMvc.perform(post("/v1/name")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"\",\"surname\":\"Cena\"}"))
-                .andExpect(status().isBadRequest());
-
-    }
-
-    @Test
-    void testConcatenateNameWithMissingField() throws Exception {
-
-        mockMvc.perform(post("/v1/name")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"name\":\"Rock\"}"))
-                .andExpect(status().isBadRequest());
-
-    }
-
-
+    mockMvc
+        .perform(
+            post("/v1/name").contentType(MediaType.APPLICATION_JSON).content("{\"name\":\"Rock\"}"))
+        .andExpect(status().isBadRequest());
+  }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NameService {
 
-    public String concatenate(Name name){
-        return name.getName()+" "+name.getSurname();
-    }
+  public String concatenate(Name name) {
+    return name.getName() + " " + name.getSurname();
+  }
 }

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class NameController {
     public static final Logger LOGGER = LoggerFactory.getLogger(NameController.class);
 
-    private NameService nameService;
+    private final NameService nameService;
 
     public NameController(NameService nameService){
         this.nameService=nameService;

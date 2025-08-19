@@ -13,12 +13,11 @@ import lombok.Setter;
 @Setter
 public class Name {
 
-    @JsonProperty("Name")
-    @NotBlank(message = "Name cannot be blank")
-    String name;
+  @JsonProperty("Name")
+  @NotBlank(message = "Name cannot be blank")
+  String name;
 
-    @JsonProperty("Surname")
-    @NotBlank(message = "Surname cannot be blank")
-    String surname;
-
+  @JsonProperty("Surname")
+  @NotBlank(message = "Surname cannot be blank")
+  String surname;
 }

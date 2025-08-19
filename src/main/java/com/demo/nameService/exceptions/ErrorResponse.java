@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ErrorResponse {
-    private LocalDateTime timestamp;
-    private int status;
-    private String error;
-    private String message;
-    private Map<String, String> validationErrors;
+  private LocalDateTime timestamp;
+  private int status;
+  private String error;
+  private String message;
+  private Map<String, String> validationErrors;
 }
